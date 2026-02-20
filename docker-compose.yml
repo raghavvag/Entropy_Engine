@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  # ─── Person 1: Simulation Engine ───
+  simulation:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    restart: unless-stopped
+
+  # ─── Person 3: Orchestrator ───
+  orchestrator:
+    build:
+      context: .
+      dockerfile: integrator/Dockerfile
+    ports:
+      - "8001:8001"
+    depends_on:
+      simulation:
+        condition: service_healthy
+    environment:
+      - SIMULATION_API_URL=http://simulation:8000
+      - ORCHESTRATOR_HOST=0.0.0.0
+      - ORCHESTRATOR_PORT=8001
+      - AI_MODEL_PATH=/app/ai/models/pinn_model.pt
+      - LOG_LEVEL=INFO
+    restart: unless-stopped
