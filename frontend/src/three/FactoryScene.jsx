@@ -6,6 +6,7 @@ import Pipe from "./Pipe";
 import Turbine from "./Turbine";
 import SteamParticles from "./SteamParticles";
 import Floor from "./Floor";
+import Worker from "./Worker";
 
 /* ─────────────────────────────────────────────────────────
    FACTORY SCENE — Complete Industrial Layout
@@ -231,6 +232,40 @@ export default function FactoryScene({ metrics, aiActive = false }) {
 
         {/* ═══ FIRE EXTINGUISHER ═══ */}
         <FireExtinguisher position={[3.5, 0, -2.85]} />
+
+        {/* ═══ FACTORY WORKERS (4, patrolling) ═══ */}
+        {/* Worker 1 — Furnace operator, paces near furnace */}
+        <Worker
+          path={[[-6, 0, 2], [-3, 0, 2], [-3, 0, -1.5], [-6, 0, -1.5]]}
+          speed={0.5}
+          color="#2563eb"
+          hatColor="#eab308"
+          startOffset={0}
+        />
+        {/* Worker 2 — Pipe inspector, walks along the pipe run */}
+        <Worker
+          path={[[-2, 0, 3], [1, 0, 3], [4, 0, 3], [4, 0, 1.5], [-2, 0, 1.5]]}
+          speed={0.4}
+          color="#dc2626"
+          hatColor="#f97316"
+          startOffset={0.3}
+        />
+        {/* Worker 3 — Turbine tech, circles the turbine */}
+        <Worker
+          path={[[3, 0, -1.5], [7, 0, -1.5], [7, 0, 1.5], [3, 0, 1.5]]}
+          speed={0.55}
+          color="#16a34a"
+          hatColor="#ffffff"
+          startOffset={0.6}
+        />
+        {/* Worker 4 — Supervisor, long perimeter walk */}
+        <Worker
+          path={[[-7, 0, -3], [8, 0, -3], [8, 0, 0], [0, 0, 0], [-7, 0, 0]]}
+          speed={0.35}
+          color="#7c3aed"
+          hatColor="#eab308"
+          startOffset={0.15}
+        />
 
         {/* ═══ INDUSTRIAL OVERHEAD LIGHTS ═══ */}
         {[-3, 2, 7].map((x) => (
