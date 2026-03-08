@@ -28,7 +28,9 @@ go build -o bin/hotreload.exe ./cmd/hotreload
 ## SECTION 1 — INTRO (0:00 – 0:45)
 
 ### What to say:
-> "Hi, I'm Raghav. I built a tool called hotreload — it's a CLI tool written in Go that watches your project folder for code changes and automatically rebuilds and restarts the server. So as a developer, you just save your file and the server restarts with the new code in under 2 seconds. No more manual stop, build, run cycle."
+> I am Raghav Agrawal, a second-year B.Tech Computer Science and Engineering student at Vellore Institute of Technology (VIT), Vellore. I am a backend-focused developer with strong experience in Java, Spring Boot, and distributed backend systems.
+
+ I built a tool called hotreload — it's a CLI tool written in Go that watches your project folder for code changes and automatically rebuilds and restarts the server. So as a developer, you just save your file and the server restarts with the new code in under 2 seconds. No more manual stop, build, run cycle."
 
 ### What to show on screen:
 - **Browser → GitHub repo page** (`https://github.com/raghavvag/go-hotreload-engine`)
