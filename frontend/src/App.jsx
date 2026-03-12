@@ -11,6 +11,7 @@ import SafetyIndicator from "./components/SafetyIndicator";
 import ComparisonPanel from "./components/ComparisonPanel";
 import BusinessMetrics from "./components/BusinessMetrics";
 import FactoryScene from "./three/FactoryScene";
+import { IconBolt, IconThermometer, IconGauge, IconValve, LogoMark } from "./components/Icons";
 
 export default function App() {
   const { state, connected } = useMetrics(1000);
@@ -52,22 +53,22 @@ export default function App() {
         >
           <KPICard
             label="Power Output" value={metrics.power_output} unit="kW"
-            icon="⚡" color="blue"
+            icon={IconBolt} color="blue"
             sub={effectiveAI ? "AI optimized" : "Baseline"}
           />
           <KPICard
             label="Temperature" value={metrics.temperature} unit="°C"
-            icon="🌡️" color="orange"
-            alert={metrics.temperature > 580 ? "Near limit!" : null}
+            icon={IconThermometer} color="orange"
+            alert={metrics.temperature > 580 ? "Near limit" : null}
           />
           <KPICard
             label="Pressure" value={metrics.pressure} unit="bar"
-            icon="💨" color="cyan"
-            alert={metrics.pressure > 7.5 ? "High pressure!" : null}
+            icon={IconGauge} color="cyan"
+            alert={metrics.pressure > 7.5 ? "High pressure" : null}
           />
           <KPICard
             label="Valve Position" value={metrics.valve_position} unit="%"
-            icon="🔧" color="emerald"
+            icon={IconValve} color="emerald"
           />
         </motion.div>
 
@@ -153,7 +154,9 @@ export default function App() {
 
       {/* Footer */}
       <footer className="text-center py-6 text-[11px] text-slate-600 border-t border-slate-800/50">
-        Entropy Engine — Physics-Informed Neural Network + Model Predictive Control
+        <span className="text-slate-500">Entropy Engine</span>
+        <span className="mx-2 text-slate-700">|</span>
+        Physics-Informed Neural Network + Model Predictive Control
       </footer>
     </div>
   );
@@ -168,12 +171,12 @@ function ConfidenceCard({ confidence }) {
 
   return (
     <div className="glass-card p-4">
-      <p className="text-[10px] text-slate-500 uppercase tracking-wider mb-2 font-semibold">
+      <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-2.5 font-semibold">
         Model Confidence
       </p>
       <div className="flex items-center gap-3">
         <div className="flex-1">
-          <div className="w-full h-2 rounded-full bg-slate-700/60 overflow-hidden">
+          <div className="w-full h-1.5 rounded-full bg-slate-700/60 overflow-hidden">
             <motion.div
               className={`h-full rounded-full ${isGood ? "bg-emerald-400" : "bg-amber-400"}`}
               initial={{ width: 0 }}
@@ -203,16 +206,16 @@ function HeroLanding({ onEnter, connected, metrics, aiActive }) {
   return (
     <div className="min-h-screen relative overflow-hidden bg-navy-950">
       {/* Background 3D Scene */}
-      <div className="absolute inset-0 opacity-40">
+      <div className="absolute inset-0 opacity-30">
         <FactoryScene metrics={metrics} aiActive={aiActive} />
       </div>
 
       {/* Gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-b from-navy-950/80 via-transparent to-navy-950" />
+      <div className="absolute inset-0 bg-gradient-to-b from-navy-950/90 via-navy-950/40 to-navy-950" />
       <div className="absolute inset-0 bg-gradient-to-r from-navy-950/60 via-transparent to-navy-950/60" />
 
       {/* Grid pattern */}
-      <div className="absolute inset-0 bg-grid opacity-30" />
+      <div className="absolute inset-0 bg-grid opacity-20" />
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4">
@@ -223,9 +226,7 @@ function HeroLanding({ onEnter, connected, metrics, aiActive }) {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="mb-8"
         >
-          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center shadow-2xl shadow-blue-500/30">
-            <span className="text-4xl font-black text-white">E</span>
-          </div>
+          <LogoMark size={80} className="shadow-2xl shadow-blue-500/20" />
         </motion.div>
 
         {/* Title */}
@@ -247,13 +248,17 @@ function HeroLanding({ onEnter, connected, metrics, aiActive }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-slate-400 text-lg md:text-xl text-center mt-4 max-w-xl leading-relaxed"
+          className="text-slate-400 text-lg md:text-xl text-center mt-4 max-w-lg leading-relaxed"
         >
           AI-Powered Industrial Power Plant Optimization
-          <br />
-          <span className="text-slate-500 text-sm">
-            Physics-Informed Neural Network · Model Predictive Control · Real-Time Safety
-          </span>
+        </motion.p>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="text-slate-500 text-sm text-center mt-2"
+        >
+          Physics-Informed Neural Network · Model Predictive Control · Real-Time Safety
         </motion.p>
 
         {/* Feature pills */}
@@ -261,12 +266,12 @@ function HeroLanding({ onEnter, connected, metrics, aiActive }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="flex flex-wrap justify-center gap-3 mt-8"
+          className="flex flex-wrap justify-center gap-2.5 mt-8"
         >
-          {["PINN Model", "MPC Controller", "Real-Time Safety", "Live 3D Viz"].map((tag, i) => (
+          {["PINN Model", "MPC Controller", "Real-Time Safety", "Live 3D Viz"].map((tag) => (
             <span
               key={tag}
-              className="px-4 py-1.5 rounded-full text-xs font-semibold bg-slate-800/60 border border-slate-700/40 text-slate-300"
+              className="px-4 py-1.5 rounded-full text-[11px] font-medium bg-slate-800/70 border border-slate-700/50 text-slate-300 tracking-wide"
             >
               {tag}
             </span>
@@ -278,12 +283,17 @@ function HeroLanding({ onEnter, connected, metrics, aiActive }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          whileHover={{ scale: 1.04 }}
+          whileTap={{ scale: 0.97 }}
           onClick={onEnter}
-          className="mt-12 px-10 py-4 rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-400 text-white font-bold text-lg shadow-2xl shadow-blue-500/30 cursor-pointer relative overflow-hidden group"
+          className="mt-12 px-10 py-3.5 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-400 text-white font-semibold text-base shadow-2xl shadow-blue-500/25 cursor-pointer relative overflow-hidden group"
         >
-          <span className="relative z-10">Launch Dashboard →</span>
+          <span className="relative z-10 flex items-center gap-2">
+            Launch Dashboard
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
+            </svg>
+          </span>
           <motion.div
             className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity"
           />
@@ -296,7 +306,7 @@ function HeroLanding({ onEnter, connected, metrics, aiActive }) {
           transition={{ delay: 1.2 }}
           className="mt-8 flex items-center gap-2"
         >
-          <div className={`w-2 h-2 rounded-full ${connected ? "bg-emerald-400" : "bg-red-400"} animate-pulse`} />
+          <div className={`w-1.5 h-1.5 rounded-full ${connected ? "bg-emerald-400" : "bg-red-400"} animate-pulse`} />
           <span className="text-[11px] text-slate-500">
             {connected ? "Backend connected · Simulation running" : "Connecting to backend..."}
           </span>

@@ -97,7 +97,7 @@ MPC_CONFIDENCE_THRESHOLD: float = float(os.getenv("MPC_CONFIDENCE_THRESHOLD", "0
 # ─────────────────────────────────────────────
 # Physics Constants (must match Person 1)
 # ─────────────────────────────────────────────
-PRESSURE_COEFFICIENT: float = 0.004
+PRESSURE_COEFFICIENT: float = 0.008
 TURBINE_EFFICIENCY: float = 0.35
 
 # ─────────────────────────────────────────────

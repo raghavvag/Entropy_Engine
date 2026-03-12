@@ -24,6 +24,7 @@ from typing import Dict
 from config import (
     AMBIENT_TEMPERATURE,
     FLOW_DRIFT_MAGNITUDE,
+    FURNACE_HEAT_RATE,
     HEAT_DECAY_CONSTANT,
     HEAT_SPIKE_MAGNITUDE,
     HEAT_SPIKE_PROBABILITY,
@@ -42,6 +43,7 @@ from config import (
     MIN_POWER,
     MIN_PRESSURE,
     MIN_TEMPERATURE,
+    POWER_MULTIPLIER,
     PRESSURE_COEFFICIENT,
     SENSOR_NOISE_PERCENT,
     TICK_INTERVAL,
@@ -175,8 +177,8 @@ class SimulationEngine:
         """Advance the plant model by one time-step (dt = TICK_INTERVAL)."""
         dt = TICK_INTERVAL
 
-        # ── Step 1: Heat decay ──
-        dT = -HEAT_DECAY_CONSTANT * (self._temperature - AMBIENT_TEMPERATURE) * dt
+        # ── Step 1: Heat input from furnace + decay ──
+        dT = (FURNACE_HEAT_RATE - HEAT_DECAY_CONSTANT * (self._temperature - AMBIENT_TEMPERATURE)) * dt
         new_temperature = self._temperature + dT
 
         # ── Step 2: Random heat spike (furnace burst) ──
@@ -205,7 +207,7 @@ class SimulationEngine:
         new_pressure = PRESSURE_COEFFICIENT * new_temperature * effective_flow
 
         # ── Step 7: Power output ──
-        new_power = TURBINE_EFFICIENCY * new_pressure * effective_flow
+        new_power = POWER_MULTIPLIER * TURBINE_EFFICIENCY * new_pressure * effective_flow
 
         # ── Step 8: Inertia smoothing (no instant jumps) ──
         self._temperature = (

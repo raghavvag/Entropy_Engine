@@ -56,7 +56,7 @@ DATA_DIR: str = "ai/data"
 DATA_FILE: str = "ai/data/training_data.csv"
 MIN_TRAINING_SAMPLES: int = 1000
 COLLECTION_INTERVAL: float = 1.0        # seconds
-VALVE_PERTURBATION_INTERVAL: int = 50   # perturb every N samples
+VALVE_PERTURBATION_INTERVAL: int = 10   # perturb every N samples
 VALVE_PERTURBATION_MIN: float = 20.0
 VALVE_PERTURBATION_MAX: float = 80.0
 
@@ -86,7 +86,7 @@ SAFETY_LOSS_WEIGHT: float = 0.5         # λ_safety
 # ─────────────────────────────────────────────
 # Physics Constants (must match Person 1's config)
 # ─────────────────────────────────────────────
-PRESSURE_COEFFICIENT: float = 0.004     # c1: pressure = c1 * T * F_eff
+PRESSURE_COEFFICIENT: float = 0.008     # c1: pressure = c1 * T * F_eff
 TURBINE_EFFICIENCY: float = 0.35        # η:  power   = η  * P * F_eff
 
 # ─────────────────────────────────────────────

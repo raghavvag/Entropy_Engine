@@ -16,9 +16,10 @@ TICK_INTERVAL: float = 1.0          # seconds between physics updates
 AMBIENT_TEMPERATURE: float = 25.0   # °C — surrounding air temperature
 
 # ─────────────────────────────────────────────
-# Heat Decay
+# Heat Decay & Furnace
 # ─────────────────────────────────────────────
 HEAT_DECAY_CONSTANT: float = 0.02   # k  in  dT/dt = -k * (T - T_amb)
+FURNACE_HEAT_RATE: float = 9.0      # °C/tick — continuous heat input from furnace burners
 
 # ─────────────────────────────────────────────
 # Initial Conditions (plant startup values)
@@ -32,8 +33,9 @@ INITIAL_POWER_OUTPUT: float = 200.0     # kW
 # ─────────────────────────────────────────────
 # Physical / Thermodynamic Constants
 # ─────────────────────────────────────────────
-PRESSURE_COEFFICIENT: float = 0.004     # c1 : pressure = c1 * T * F_eff
+PRESSURE_COEFFICIENT: float = 0.008     # c1 : pressure = c1 * T * F_eff
 TURBINE_EFFICIENCY: float = 0.35        # η  : power   = η  * P * F_eff
+POWER_MULTIPLIER: float = 55.0          # scale factor: W = multiplier * η * P * F_eff
 
 # ─────────────────────────────────────────────
 # Operating Ranges (hard clamps)
@@ -47,15 +49,15 @@ MAX_FLOW_RATE: float = 5.0        # kg/s
 MIN_PRESSURE: float = 4.0         # bar
 MAX_PRESSURE: float = 8.0         # bar  ← safety relief valve
 
-MIN_POWER: float = 150.0          # kW
+MIN_POWER: float = 80.0           # kW
 MAX_POWER: float = 300.0          # kW
 
 # ─────────────────────────────────────────────
 # Realism Modifiers
 # ─────────────────────────────────────────────
 SENSOR_NOISE_PERCENT: float = 0.02      # ±2% noise on sensor readings
-HEAT_SPIKE_PROBABILITY: float = 0.02    # 2% chance per tick
-HEAT_SPIKE_MAGNITUDE: float = 30.0      # °C added on spike event
+HEAT_SPIKE_PROBABILITY: float = 0.05    # 5% chance per tick
+HEAT_SPIKE_MAGNITUDE: float = 20.0      # °C added on spike event
 VALVE_RESPONSE_RATE: float = 0.1        # valve moves 10% toward target per tick
 INERTIA_FACTOR: float = 0.85            # smoothing: new = 0.85*old + 0.15*calc
 

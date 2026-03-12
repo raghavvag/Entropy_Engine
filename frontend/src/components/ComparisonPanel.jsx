@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { IconArrowRight, IconActivity } from "./Icons";
 
 export default function ComparisonPanel({ comparison }) {
   if (!comparison) return null;
@@ -8,9 +9,12 @@ export default function ComparisonPanel({ comparison }) {
 
   return (
     <div className="glass-card p-6">
-      <h2 className="text-xs text-slate-400 font-semibold uppercase tracking-wider mb-5">
-        ⚡ AI Impact Analysis
-      </h2>
+      <div className="flex items-center gap-2 mb-5">
+        <IconActivity className="w-3.5 h-3.5 text-slate-400" />
+        <h2 className="text-[10px] text-slate-400 font-semibold uppercase tracking-widest">
+          AI Impact Analysis
+        </h2>
+      </div>
 
       <div className="grid grid-cols-3 gap-4 items-center">
         {/* Baseline */}
@@ -30,18 +34,18 @@ export default function ComparisonPanel({ comparison }) {
 
         {/* Arrow + Improvement */}
         <div className="flex flex-col items-center justify-center">
-          <motion.span
-            className="text-3xl text-slate-600"
+          <motion.div
+            className="text-slate-600"
             animate={{ x: [0, 6, 0] }}
             transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
           >
-            →
-          </motion.span>
+            <IconArrowRight className="w-6 h-6" />
+          </motion.div>
           <motion.p
             key={improvement_pct}
             initial={{ scale: 0.8 }}
             animate={{ scale: 1 }}
-            className={`text-xl font-bold font-mono-num mt-1 ${
+            className={`text-xl font-bold font-mono-num mt-1.5 ${
               isPositive ? "text-emerald-400" : improvement_pct < 0 ? "text-red-400" : "text-slate-400"
             }`}
           >
